@@ -12,9 +12,19 @@ $(document).ready(function () {
         doCalc();
     });
 
-
-    $('#standart, #premium, #excelium').on('click', function () {
+    // The first question
+    $('#standard').on('click', function () {
         document.getElementById('elevPriceUnit').value = (7565).toFixed(2) + " $";
+        doCalc();
+    });
+
+    $('#premium').on('click', function () {
+        document.getElementById('elevPriceUnit').value = (12345).toFixed(2) + " $";
+        doCalc();
+    });
+
+    $('#excelium').on('click', function () {
+        document.getElementById('elevPriceUnit').value = (15400).toFixed(2) + " $";
         doCalc();
     });
 
@@ -57,7 +67,7 @@ $(document).ready(function () {
 
         } else if ($('#premium').is(':checked')) {
             prodRange.type = "premium";
-            prodRange.price = parseFloat(123456);
+            prodRange.price = parseFloat(12345); //Question 9
             prodRange.installationFeePercentage = 0.13;
             return prodRange;
 
@@ -68,13 +78,15 @@ $(document).ready(function () {
             return prodRange;
         } else {
             prodRange.type = null,
-            prodRange.price = null,
-            prodRange.installationFeePercentage = null
+                prodRange.price = null,
+                prodRange.installationFeePercentage = null
             return prodRange;
         }
     };
 
+
     function GetInfos() {
+        getInfoNumApp() // Second question, I added this line // This also for the 4th question
         getInfoNumFloors();
         getInfoNumBase();
         getInfoNumElev();
@@ -104,7 +116,8 @@ $(document).ready(function () {
             numberBase: numBase,
             maximumOcc: maxOcc,
             productRange: prodRange,
-            projectType: projectType
+            projectType: projectType,
+            numberElev: numElev  //Question 5 // Question 6
         }
     };
 
@@ -115,7 +128,12 @@ $(document).ready(function () {
             $('#numApp').val('');
             return true
 
-        } else if ($('#numBase').val() < 0) {
+        } else if ($('#numFloors').val() < 0) { //Third question, I added this line
+            alert("Please enter a positive number!");
+            $('#numFloors').val('');
+            return true
+        }
+        else if ($('#numBase').val() < 0) {
 
             alert("Please enter a positive number!");
             $('#numBase').val('');
@@ -177,14 +195,16 @@ $(document).ready(function () {
             }
         });
     }
-    
+
     function doCalc() {
         if ($('#residential').hasClass('active') && !negativeValues() && $('#numApp').val() && $('#numFloors').val()) {
             apiCall('residential')
-        } else if ($('#commercial').hasClass('active') && !negativeValues() && $('#numElev').val()  && $('#numPark').val()) {
+        } else if ($('#commercial').hasClass('active') && !negativeValues() && $('#numElev').val()) {
             apiCall('commercial')
         } else if ($('#corporate').hasClass('active') && !negativeValues() && $('#numFloors').val() && $('#numBase').val() && $('#maxOcc').val()) {
-            apiCall('commercial')
+            apiCall('corporate') // Question 7
+        } else if ($('#hybrid').hasClass('active') && !negativeValues() && $('#numFloors').val() && $('#numBase').val() && $('#maxOcc').val()) {
+            apiCall('hybrid') // Question 8
         } else {
             emptyElevatorsNumberAndPricesFields();
         };
