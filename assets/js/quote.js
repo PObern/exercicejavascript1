@@ -71,7 +71,7 @@ $(document).ready(function () {
       return prodRange;
     } else if ($("#premium").is(":checked")) {
       prodRange.type = "premium";
-      prodRange.price = parseFloat(123456);
+      prodRange.price = parseFloat(12345);
       prodRange.installationFeePercentage = 0.13;
       return prodRange;
     } else if ($("#excelium").is(":checked")) {
@@ -207,8 +207,8 @@ $(document).ready(function () {
     } else if (
       $("#commercial").hasClass("active") &&
       !negativeValues() &&
-      $("#numElev").val() &&
-      $("#numPark").val()
+      $("#numElev").val() //&&
+      // $("#numPark").val()
     ) {
       apiCall("commercial");
     } else if (
