@@ -107,6 +107,8 @@ $(document).ready(function () {
     $("#elevTotal").val(parseFloat(roughTotal).toFixed(2) + " $");
     $("#installationFee").val(parseFloat(installFee).toFixed(2) + " $");
     $("#total_").val(parseFloat(total).toFixed(2) + " $");
+    //added number of elevators value
+    $("#numElev_2").val(parseFloat(finNumElev).toFixed(2) + " $");
   }
 
   function emptyElevatorsNumberAndPricesFields() {
